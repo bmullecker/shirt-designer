@@ -1,0 +1,61 @@
+{
+  "project": "Shirt Design Tool",
+  "architecture": {
+    "framework": "React, Tailwind CSS",
+    "canvasEngine": "Fabric.js",
+    "stateManagement": "React Context (DesignProvider)"
+  },
+  "agents": {
+    "Agent A": {
+      "role": "UI/Canvas Specialist",
+      "allowedDirectories": [
+        "/src/components/canvas"
+      ],
+      "responsibilities": [
+        "Interactive workspace",
+        "Image uploads",
+        "Drag/drop, resizing, rotation",
+        "Printable area overlay constraint"
+      ]
+    },
+    "Agent B": {
+      "role": "Export/Logic Specialist",
+      "allowedDirectories": [
+        "/src/utils/export",
+        "/src/api/quote"
+      ],
+      "responsibilities": [
+        "High-resolution export utility",
+        "Convert canvas to 300 DPI PNG",
+        "Package with user metadata",
+        "Save feature (export state as .json)",
+        "Mock backend route for SendGrid email triggers"
+      ]
+    }
+  },
+  "sharedState": {
+    "location": "/src/context/DesignContext.tsx",
+    "schema": {
+      "currentShirt": {
+        "color": "string",
+        "type": "t-shirt | hoodie | long-sleeve",
+        "dimensions": {
+          "width": "number",
+          "height": "number"
+        }
+      },
+      "canvasObjects": "object[]",
+      "userSession": {
+        "email": "string | null",
+        "quoteStatus": "draft | pending | sent"
+      }
+    }
+  },
+  "apiEndpoints": [
+    {
+      "method": "POST",
+      "route": "/api/quote",
+      "description": "Trigger SendGrid emails containing the user's quote request."
+    }
+  ]
+}
