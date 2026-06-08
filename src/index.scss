@@ -1,0 +1,447 @@
+// index.scss
+@use "sass:color";
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+// Design System
+$brand-primary: #6366f1; // Modern Indigo
+$brand-secondary: #10b981; // Vibrant Emerald
+$brand-danger: #f43f5e; // Modern Rose
+$bg-app: #f1f5f9; // Slate 100
+$bg-card: rgba(255, 255, 255, 0.9);
+$text-dark: #0f172a;
+$text-light: #64748b;
+$border-glass: rgba(255, 255, 255, 0.2);
+$shadow-premium: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: radial-gradient(circle at top left, #f8fafc, #e2e8f0);
+  color: $text-dark;
+  font-family: 'Outfit', 'Inter', -apple-system, sans-serif;
+  min-height: 100vh;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+}
+
+// Layout Container
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.designer-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  width: 100%;
+  max-width: 1200px;
+  animation: fadeIn 0.8s ease-out;
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+// Glassmorphism Card
+.glass-card {
+  background: $bg-card;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid white;
+  border-radius: 2rem;
+  box-shadow: $shadow-premium;
+  padding: 2rem;
+}
+
+// Product Selectors
+.selector-section {
+  margin-bottom: 2rem;
+
+  &.no-margin {
+    margin-bottom: 0;
+  }
+
+  h3 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    color: $text-light;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .pill-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .pill {
+    width: 100%;
+    padding: 0.75rem 0.5rem;
+    border-radius: 1rem;
+    background: #f8fafc;
+    border: 2px solid #f1f5f9;
+    font-weight: 600;
+    justify-content: flex-start;
+    color: $text-dark;
+    white-space: nowrap;
+
+    &.active {
+      border-color: $brand-primary;
+      background: color.adjust($brand-primary, $lightness: 45%);
+      color: $brand-primary;
+    }
+
+    &:hover:not(.active) {
+      background: #f1f5f9;
+    }
+  }
+
+  .swatch-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .swatch {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    background-color: var(--swatch-color);
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border: 2px solid transparent;
+      border-radius: 50%;
+      transition: all 0.2s;
+    }
+
+    &.active::after {
+      border-color: $brand-primary;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  .size-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+
+  .size-btn {
+    padding: 0.6rem 0.4rem;
+    border-radius: 0.75rem;
+    background: #f8fafc;
+    border: 2px solid #f1f5f9;
+    font-weight: 700;
+    white-space: nowrap;
+
+    &.active {
+      background: $text-dark;
+      color: white;
+      border-color: $text-dark;
+    }
+  }
+}
+
+// Sidebar
+.sidebar {
+  flex: 0 0 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  .header {
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      background: linear-gradient(to right, $brand-primary, #a855f7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      color: $text-light;
+      font-weight: 500;
+    }
+  }
+}
+
+
+// Workspace Area
+.workspace {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.toolbar-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0; // Remove space between toolbar and shirt area
+  width: 100%;
+  max-width: 800px;
+  align-self: center;
+  z-index: 110; // Ensure it stays above builder-pane
+}
+
+// Toolbar
+.modern-toolbar {
+  @extend .glass-card;
+  padding: 1rem;
+  border-radius: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 100;
+  width: 100%;
+
+  .group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &>.group:first-child {
+    gap: 0.75rem;
+  }
+
+  .divider {
+    width: 1px;
+    height: 1.5rem;
+    background: #e2e8f0;
+  }
+
+  .icon {
+    padding: 0.65rem;
+    color: #94a3b8; // Mid-gray (Slate 400)
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      display: block;
+    }
+
+    &:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+
+    &.active {
+      background: #e2e8f0;
+      color: $brand-primary;
+    }
+
+    &.danger {
+      color: #ef4444;
+      margin-left: 0.5rem;
+
+      &:hover {
+        background: #fff1f2;
+      }
+    }
+  }
+}
+
+// Typography Toolbar
+.text-edit-toolbar {
+  @extend .glass-card;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  z-index: 100;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: white;
+  width: fit-content;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  .divider {
+    width: 1px;
+    height: 1.25rem;
+    background: #e2e8f0;
+  }
+
+  .font-select {
+    padding: 0.35rem 0.65rem;
+    border-radius: 0.6rem;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: $text-dark;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    min-width: 140px;
+    outline: none;
+
+    &:hover {
+      border-color: #cbd5e1;
+    }
+  }
+
+  .tool-btn {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    
+    svg {
+      width: 1.15rem;
+      height: 1.15rem;
+      display: block;
+    }
+
+    &:hover { background: #f1f5f9; color: #0f172a; }
+    &.active { background: #e2e8f0; color: $brand-primary; }
+  }
+}
+
+// Builder Pane
+.builder-pane {
+  @extend .glass-card;
+  background: white;
+  min-height: 750px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.canvas-wrapper {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  // Background Shirt Container
+  .shirt-background {
+    position: absolute;
+    inset: 0;
+    border-radius: 1.5rem;
+    overflow: hidden;
+
+    .white-base {
+      position: absolute;
+      inset: 0;
+      background-color: white;
+    }
+
+    .color-layer {
+      position: absolute;
+      inset: 0;
+      transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background-color: var(--shirt-color, white);
+      mask-image: var(--shirt-mask);
+      mask-size: cover;
+      mask-repeat: no-repeat;
+      z-index: 2;
+    }
+
+    .mockup-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      mix-blend-mode: multiply;
+      opacity: 0.95;
+      z-index: 3;
+    }
+  }
+
+  .fabric-container {
+    z-index: 10;
+    // background: rgba(255, 255, 255, 0.01);
+    // box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+    // border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    overflow: hidden;
+
+    .fabric-wrapper {
+      position: relative;
+      width: 100% !important;
+      height: 100% !important;
+      user-select: none;
+
+      canvas {
+        width: 100% !important;
+        height: 100% !important;
+      }
+    }
+  }
+}
+
+.hidden-input {
+  display: none !important
+}
